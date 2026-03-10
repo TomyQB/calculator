@@ -76,7 +76,3 @@ The test suite includes **15 deterministic tests** and **4 fuzz tests** (256 ran
 # Run with gas report
 forge test --gas-report
 ```
-
-## License
-
-MIT
