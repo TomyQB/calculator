@@ -1,6 +1,14 @@
+<div align="center">
+
+![Solidity](https://img.shields.io/badge/Solidity-^0.8.28-363636?style=for-the-badge&logo=solidity&logoColor=white)
+![Foundry](https://img.shields.io/badge/Foundry-Forge-DEA584?style=for-the-badge&logo=ethereum&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
+
 # Solidity Calculator
 
 Arithmetic calculator smart contract built with Foundry. Implements addition, subtraction, multiplication, and division with event logging, custom errors, and admin-based access control.
+
+</div>
 
 ## Features
 
@@ -69,8 +77,6 @@ The test suite includes **15 deterministic tests** and **4 fuzz tests** (256 ran
 forge test --gas-report
 ```
 
-## Tech Stack
+## License
 
-- **Solidity** ^0.8.28
-- **Foundry** (Forge)
-- **License**: MIT
+MIT
