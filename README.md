@@ -1,66 +1,76 @@
-## Foundry
+# Solidity Calculator
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+Arithmetic calculator smart contract built with Foundry. Implements addition, subtraction, multiplication, and division with event logging, custom errors, and admin-based access control.
 
-Foundry consists of:
+## Features
 
-- **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
-- **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
-- **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
-- **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+- **Four operations**: `add`, `subtract`, `multiply`, `divide` using `int256` (signed integers)
+- **Event logging**: Every operation emits an event with operands and result
+- **Access control**: Division restricted to admin address via `onlyAdmin` modifier
+- **Custom errors**: Gas-efficient `DivisionByZero()` and `Unauthorized()` errors
+- **Overflow protection**: Solidity 0.8.28 built-in checked arithmetic
 
-## Documentation
+## Contract Interface
 
-https://book.getfoundry.sh/
+| Function | Access | Description |
+|---|---|---|
+| `add(int256 a, int256 b)` | Public | Returns `a + b` |
+| `subtract(int256 a, int256 b)` | Public | Returns `a - b` |
+| `multiply(int256 a, int256 b)` | Public | Returns `a * b` |
+| `divide(int256 a, int256 b)` | Admin only | Returns `a / b`, reverts on zero divisor |
+
+## Project Structure
+
+```
+src/
+  Calculator.sol       # Main contract
+test/
+  Calculator.t.sol     # Unit + fuzz tests (19 tests)
+lib/
+  forge-std/           # Foundry standard library
+```
+
+## Requirements
+
+- [Foundry](https://book.getfoundry.sh/getting-started/installation)
 
 ## Usage
 
-### Build
-
 ```shell
-$ forge build
+# Build
+forge build
+
+# Run tests
+forge test
+
+# Run tests with verbose output
+forge test -vvv
+
+# Format code
+forge fmt
+
+# Check formatting
+forge fmt --check
 ```
 
-### Test
+## Testing
+
+The test suite includes **15 deterministic tests** and **4 fuzz tests** (256 random iterations each):
+
+- Happy path for each operation
+- Overflow/underflow revert cases
+- Event emission verification
+- Division by zero revert
+- Admin access control enforcement
+- Fuzz testing with random `int128` inputs across all operations
 
 ```shell
-$ forge test
+# Run with gas report
+forge test --gas-report
 ```
 
-### Format
+## Tech Stack
 
-```shell
-$ forge fmt
-```
-
-### Gas Snapshots
-
-```shell
-$ forge snapshot
-```
-
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+- **Solidity** ^0.8.28
+- **Foundry** (Forge)
+- **License**: MIT
